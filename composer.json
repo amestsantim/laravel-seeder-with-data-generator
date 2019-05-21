@@ -1,0 +1,36 @@
+{
+  "name": "amestsantim/laravel-seeder-with-data-generator",
+  "description": "Generate laravel seeders with data",
+  "keywords": [
+    "amestsantim",
+    "seeder",
+    "laravel",
+    "data",
+    "generator"
+  ],
+  "authors": [{
+      "name": "Nahom Tamerat",
+      "email": "nahomt@amestsantim.com"
+  }],
+  "autoload": {
+      "psr-4": {
+          "AmestSantim\\Generators\\": "src/"
+      }
+  },
+  "autoload-dev": {
+      "psr-4": {
+          "Amestsantim\\Generators\\Tests\\Unit\\": "tests"
+      }
+  },
+  "require": {
+      "php": "^7.0"
+  },
+  "license": "MIT",
+  "extra": {
+      "laravel": {
+          "providers": [
+              "AmestSantim\\Generators\\GeneratorsServiceProvider"
+          ]
+      }
+  }
+}
