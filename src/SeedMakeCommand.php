@@ -10,7 +10,8 @@ class SeedMakeCommand extends Command
     protected $signature = 'make:seeder-with-data 
                             {tableName : The name of the DB table} 
                             {data=[] : The data, as a named index array} 
-                            {--path= : Path where the seeder file should be saved}';
+                            {--path= : Path where the seeder file should be saved}
+                            {--timeStamps : Whether or not to automatically insert timestamps}';
 
     protected $description = 'Create a new database seeder-with-data class';
 
@@ -23,21 +24,27 @@ class SeedMakeCommand extends Command
         $this->files = $files;
     }
 
-    protected function replaceClassName(&$stub, $name)
+    protected function replaceClassName(&$stub, $value)
     {
-        $stub = str_replace('{{class}}', $name, $stub);
+        $stub = str_replace('{{class}}', $value, $stub);
         return $this;
     }
 
-    protected function replaceDataArray(&$stub, $arr)
+    protected function replaceDataArray(&$stub, $value)
     {
-        $stub = str_replace('{{dataArray}}', $arr, $stub);
+        $stub = str_replace('{{dataArray}}', $value, $stub);
         return $this;
     }
 
-    protected function replaceTableName(&$stub, $name)
+    protected function replaceTableName(&$stub, $value)
     {
-        $stub = str_replace('{{table}}', $name, $stub);
+        $stub = str_replace('{{table}}', $value, $stub);
+        return $this;
+    }
+
+    protected function replaceTimeStampsSwitch(&$stub, $value)
+    {
+        $stub = str_replace('{{timeStamps}}', $value ? 'true' : 'false', $stub);
         return $this;
     }
 
@@ -47,7 +54,8 @@ class SeedMakeCommand extends Command
 
         $this->replaceClassName($stub, $name)
             ->replaceDataArray($stub, $this->argument('data'))
-            ->replaceTableName($stub, $this->argument('tableName'));
+            ->replaceTableName($stub, $this->argument('tableName'))
+            ->replaceTimeStampsSwitch($stub, $this->option('timeStamps'));
         return $stub;
     }
 

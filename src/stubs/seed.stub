@@ -1,7 +1,12 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use AmestSantim\Generators\GenericModel;
+use Illuminate\Database\Eloquent\Model;
+
+class GenericModel extends Model
+{
+    public $timestamps = {{timeStamps}};
+}
 
 class {{class}} extends Seeder
 {
