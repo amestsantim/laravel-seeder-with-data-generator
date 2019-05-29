@@ -9,9 +9,9 @@ class SeedMakeCommand extends Command
 {
     protected $signature = 'make:seeder-with-data 
                             {tableName : The name of the DB table} 
-                            {data=[] : The data, as a named index array} 
+                            {data=[] : The data, as a serialized array of named index arrays} 
                             {--path= : Path where the seeder file should be saved}
-                            {--timeStamps : Whether or not to automatically insert timestamps}';
+                            {--timestamps : If present, this switch will enable the automatic insertion of timestamps}';
 
     protected $description = 'Create a new database seeder-with-data class';
 
@@ -32,7 +32,8 @@ class SeedMakeCommand extends Command
 
     protected function replaceDataArray(&$stub, $value)
     {
-        $stub = str_replace('{{dataArray}}', $value, $stub);
+        $dataArray = unserialize($value);
+        $stub = str_replace('{{dataArray}}', $dataArray, $stub);
         return $this;
     }
 
@@ -44,7 +45,7 @@ class SeedMakeCommand extends Command
 
     protected function replaceTimeStampsSwitch(&$stub, $value)
     {
-        $stub = str_replace('{{timeStamps}}', $value ? 'true' : 'false', $stub);
+        $stub = str_replace('{{timestamps}}', $value ? 'true' : 'false', $stub);
         return $this;
     }
 
@@ -55,7 +56,7 @@ class SeedMakeCommand extends Command
         $this->replaceClassName($stub, $name)
             ->replaceDataArray($stub, $this->argument('data'))
             ->replaceTableName($stub, $this->argument('tableName'))
-            ->replaceTimeStampsSwitch($stub, $this->option('timeStamps'));
+            ->replaceTimeStampsSwitch($stub, $this->option('timestamps'));
         return $stub;
     }
 

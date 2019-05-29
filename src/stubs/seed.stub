@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class GenericModel extends Model
 {
-    public $timestamps = {{timeStamps}};
+    public $timestamps = {{timestamps}};
 }
 
 class {{class}} extends Seeder

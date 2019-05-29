@@ -17,10 +17,10 @@ composer require amestsantim/laravel-seeder-with-data-generator
 ```make:seeder-with-data [options] [--] <tableName> [<data>]```
 <pre>Arguments:
      tableName             The name of the DB table
-     data                  The data, as a named index array [default: "[]"]
+     data                  The data, as a serialized array of named index arrays [default: "[]"]
 Options:
       --path[=PATH]         Path where the seeder file should be saved
-      --timeStamps          Whether or not to automatically insert timestamps</pre>
+      --timestamps          If present, this switch will enable the automatic insertion of timestamps</pre>
 
 ### Examples
 
@@ -70,5 +70,5 @@ If you omit the data argument, the default, which is an empty array will be used
 
 Specifying the --timeStamps switch will change the value of the $timestamps property on the model to true. This will enable the automatic addition of the created_at and updated_at fields in the inserted data. The command would like like this:
 ```php
-php artisan make:seeder-with-data permissions "[['guard_name' => 'web', 'name' => 'Make Seeders'], ['guard_name' => 'web', 'name' => 'Run Seeders']]" --timeStamps
+php artisan make:seeder-with-data permissions "[['guard_name' => 'web', 'name' => 'Make Seeders'], ['guard_name' => 'web', 'name' => 'Run Seeders']]" --timestamps
 ```
